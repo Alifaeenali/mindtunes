@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ blog_post.blog_title }} - MindTune Innovations</title>
+
+
+    <link rel="stylesheet" href={{url_for('static', filename='css/base.css')}}>
+
+    <link rel="stylesheet" href={{url_for('static', filename='css/backtotop.css')}}>
+    <title>{{ blog_post.blog_title }} - MindTune Innovations</title>
+    
+    <link rel="stylesheet" href={{url_for('static', filename='css/blog_detail.css')}}>
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libertinus+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- font awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <article class="blog-article">
+        <div class="blog-header">
+            <nav class="breadcrumb">
+                <a href="{{ url_for('index') }}">Home</a>
+                <span><i class="fas fa-chevron-right"></i></span>
+                <a href="{{ url_for('news') }}">News</a>
+                <span><i class="fas fa-chevron-right"></i></span>
+                <span>{{ blog_post.blog_title }}</span>
+            </nav>
+            
+            <div class="blog-meta">
+                <span class="blog-date"><i class="fas fa-calendar-alt"></i> {{ blog_post.blog_date.strftime('%B %d, %Y') }}</span>
+                <span class="blog-author"><i class="fas fa-user"></i> {{ blog_post.blog_author }}</span>
+            </div>
+
+            <h1 class="blog-title">{{ blog_post.blog_title }}</h1>
+            {% if blog_post.blog_subtitle %}
+                <h2 class="blog-subtitle">{{ blog_post.blog_subtitle }}</h2>
+            {% endif %}
+
+            {% if blog_post.blog_image %}
+                <div class="blog-featured-image">
+                    <img src="{{ blog_post.blog_image }}" alt="{{ blog_post.blog_title }}">
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="blog-content">
+            <div class="blog-body">
+                {{ blog_post.blog_content|safe }}
+            </div>
+
+            <div class="blog-actions">
+                <div class="share-buttons">
+                    <span>Share this article:</span>
+                    <a href="#" class="share-btn twitter" onclick="shareOnTwitter()">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="share-btn facebook" onclick="shareOnFacebook()">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="share-btn linkedin" onclick="shareOnLinkedIn()">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="share-btn copy-link" onclick="copyLink()">
+                        <i class="fas fa-link"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    {% if related_posts %}
+        <section class="related-posts">
+            <div class="container">
+                <div class="bar"></div>
+            </div>
+            
+            <h3>Related Articles</h3>
+            <div class="related-posts-grid">
+                {% for post in related_posts %}
+                    <article class="related-post-card">
+                        {% if post.blog_image %}
+                            <div class="related-post-image">
+                                <img src="{{ post.blog_image }}" alt="{{ post.blog_title }}">
+                            </div>
+                        {% endif %}
+                        <div class="related-post-content">
+                            <div class="related-post-meta">
+                                <span class="related-post-date">{{ post.blog_date.strftime('%B %d, %Y') }}</span>
+                            </div>
+                            <h4><a href="{{ url_for('blog_detail', blog_id=post.blog_id) }}">{{ post.blog_title }}</a></h4>
+                            <p>{{ post.blog_excerpt[:100] }}...</p>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+            
+            <div class="back-to-news">
+                <a href="{{ url_for('news') }}" class="btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to All Articles
+                </a>
+            </div>
+        </section>
+    {% endif %}
+
+
+    <script src="{{ url_for('static', filename='js/navbarSetting.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/backtotop.js') }}"></script>
+    
+    <script>
+        function shareOnTwitter() {
+            const url = window.location.href;
+            const title = "{{ blog_post.blog_title }}";
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`, '_blank');
+        }
+
+        function shareOnFacebook() {
+            const url = window.location.href;
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        }
+
+        function shareOnLinkedIn() {
+            const url = window.location.href;
+            const title = "{{ blog_post.blog_title }}";
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('Link copied to clipboard!');
+            });
+        }
+    </script>
+
+</body>
+</html>

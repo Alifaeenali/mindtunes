@@ -1,0 +1,35 @@
+.backtotop{
+    position: fixed;
+    right: 5px;
+    bottom: 20px;
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 5;
+    align-items: center;
+    justify-content: center;
+
+}
+.backtotop button{
+    border: none;
+    background: #ff007f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.backtotop button i {
+    color: #ffffffb3;
+    display: flex;
+    align-items: center; /* Vertically center the icon */
+    justify-content: center; /* Horizontally center the icon */
+    width: 100%; /* Ensure the icon takes up the full width */
+    height: 100%; /* Ensure the icon takes up the full height */
+}
+
+.backtotop button:hover i{
+    color: #fff;
+    font-weight: bolder;
+    z-index: 100;
+}

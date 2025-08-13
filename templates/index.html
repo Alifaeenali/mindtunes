@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - MindTune Innovations{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href={{url_for('static', filename='css/animation.css')}}>
+    <link rel="stylesheet" href={{url_for('static', filename='css/index.css')}}>
+{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-Img">
+                {% if hero.heroImg %}
+                    <img src="{{ hero.heroImg }}" alt="Hero Image">
+                {% endif %}
+            </div>
+            <div class="hero-description">
+                <span>
+                    <span class="hero-main-description"><i><h1>{{ hero.heroHead }}</h1></i></span>
+                </span>
+                <span >
+                    <p class="hero-sub-description">
+                       {{ hero.heroDesc }}
+                    </p>
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <section class="clientTrust fadeIn">
+        <div class="container">
+            <div class="bar"></div>
+        </div>
+
+        <div class="clientTrust-description">
+            <div class="clientTrust-heading">
+                <b><h1>{{ client.clientHead }}</h1></b>
+            </div>
+            <div class="clientTrust-sub-description">
+                <p>
+                  {{ client.clientDesc }}
+                </p>
+            </div>
+        </div>
+        <div class="client-image-scroller">
+            <div class="scroller-inner">
+                {% for logo in client_logos %}
+                    <img src="{{ logo }}" alt="Client Logo {{ loop.index }}">
+                {% endfor %}
+                
+                {% for logo in client_logos %}
+                    <img src="{{ logo }}" alt="Client Logo {{ loop.index }}">
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section class="innovation">
+        <div class="innovation-cont">
+            <div class="impactful-innovation">
+                <div class="header-section">
+                    <span class="sub-heading">{{ innovation.innovationSubHead }}</span>
+                    <h1 class="main-heading">{{ innovation.innovationHead }}</h1>
+                    <p class="intro-text">
+                        {{ innovation.innovationDescp }}
+                    </p>
+                </div>
+                <div class="list-section">
+                    <div class="list-item">
+                        <div class="svg-container">
+                            <i class="fa-solid fa-star-of-life"></i>
+                        </div>
+                        <p>
+                            {{ innovation.innovationl1 }}
+                        </p>
+                    </div>
+                    <div class="list-item">
+                        <div class="svg-container">
+                            <i class="fa-solid fa-star-of-life"></i>
+                        </div>
+                        <p>
+                            {{ innovation.innovationl2 }}
+                        </p>
+                    </div>
+                    <div class="list-item">
+                        <div class="svg-container">
+                            <i class="fa-solid fa-star-of-life"></i>
+                        </div>
+                        <p>
+                            {{ innovation.innovationl3 }}
+                        </p>
+                    </div>
+                    <div class="list-item">
+                        <div class="svg-container">
+                            <i class="fa-solid fa-star-of-life"></i>
+                        </div>
+                        <p>
+                            {{ innovation.innovationl4 }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="innovation-video">
+            {% if innovation.innovationMediaType == 'video' and innovation.innovationVideo %}
+                <video id="aNewCourseVideo"
+                src="{{ innovation.innovationVideo }}"
+                playsinline autoplay muted loop preload="auto">
+                </video>
+                <button id="playPauseButton" class="play-pause-btn">
+                    <i class="fas fa-pause"></i> 
+                </button>
+            </button>
+            {% elif innovation.innovationMediaType == 'image' and innovation.innovationImage %}
+                <div class="innovation-image-container" style="position: relative; width: 100%; height: 100vh; background: url('{{ innovation.innovationImage }}') center/cover no-repeat;">
+                    <!-- Optional overlay for text readability -->
+                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3);"></div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+    
+    <section class="improve-experience">
+        {% if know.knowMediaType == 'video' and know.knowVideo %}
+            <video autoplay muted loop id="myVideo">
+                <source src="{{ know.knowVideo }}" type="video/mp4">
+            </video>
+            <button id="playPauseButton" class="play-pause-btn">
+                    <i class="fas fa-pause"></i> 
+                </button>
+        {% elif know.knowMediaType == 'image' and know.knowImage %}
+            <div class="know-image-container" style="position: relative; width: 100%; height: 100vh; background: url('{{ know.knowImage }}') center/cover no-repeat;">
+                <!-- Optional overlay for text readability -->
+                <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3);"></div>
+            </div>
+        {% elif know.knowVideo %}
+            <!-- Fallback to video if media type not set -->
+            <video autoplay muted loop id="myVideo">
+                <source src="{{ know.knowVideo }}" type="video/mp4">
+            </video>
+            <button id="playPauseBtn" class="play-pause-btn">
+                <svg class="play-icon" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                <svg class="pause-icon" viewBox="0 0 24 24" style="display: none;">
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+            </button>
+        {% endif %}
+        
+        <div class="improve-experience-description">
+            <div class="improve-experience-heading">
+                <b><h1>{{ know.knowHead }}</h1></b>
+            </div>
+            <div class="improve-experience-subheading">
+               <p>{{ know.knowDescp }}</p> 
+            </div>
+        </div>
+    </section>
+
+    <section class="statistics">
+        <div class="container">
+            <div class="bar"></div>
+        </div>
+        <div class="cont">
+            <div class="statistics-description">
+                <div class="statistics-heading">
+                    <h1><b>{{ statistic.statHead }}</b></h1>
+                </div>
+                <div class="statistics-sub-description">
+                    <p>{{ statistic.statDescp }}</p>
+                </div>
+            </div>
+            <div class="statistics-cards">
+                <div class="card c1">
+                    {% if statistic.ImgCard1 %}
+                        <img src="{{ statistic.ImgCard1 }}" alt="Statistic Card Logo 1">
+                    {% endif %}
+                    <div class="number">
+                        <h3>{{ statistic.headCard1 }}</h3>
+                        <p>{{ statistic.DescCard1 }}</p>
+                    </div>
+                </div>
+                <div class="card c2">
+                    {% if statistic.ImgCard2 %}
+                        <img src="{{ statistic.ImgCard2 }}" alt="Statistic Card Logo 2">
+                    {% endif %}
+                    <div class="number">
+                        <h3>{{ statistic.headCard2 }}</h3>
+                        <p>{{ statistic.DescCard2 }}</p>
+                    </div>
+                </div>
+                <div class="card c3">
+                    {% if statistic.ImgCard3 %}
+                        <img src="{{ statistic.ImgCard3 }}" alt="Statistic Card Logo 3">
+                    {% endif %}
+                    <div class="number">
+                        <h3>{{ statistic.headCard3 }}</h3>
+                        <p>{{ statistic.DescCard3 }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="static/js/innovationVideoControls.js"></script>
+    <script src="static/js/ExpVideoControls.js"></script>
+    <script src="static/js/showContact.js"></script> 
+{% endblock %}

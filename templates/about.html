@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us - MindTune Innovations{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/about.css')}}">
+{% endblock %}
+
+{% block content %}
+    <header>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="main-title">{{ aboutData.about_head }}</h1>
+                <p class="subtitle">{{ aboutData.about_desc }}</p>
+                <div class="hero-image-placeholder">
+                    <img src="{{ aboutData.aboutHeroImage }}" alt="MindTune Team">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="section">
+            <div class="section-card">
+                <h2 class="section-title">{{ aboutData.about_title }}</h2>
+                <div class="about-grid">
+                    <div>
+                        <p class="section-content">
+                            {{ aboutData.about_subtitle }}
+                        </p>
+                        <p class="section-content">
+                            {{ aboutData.about_secondary_desc }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="achievement-banner">
+                <div class="achievement-content">
+                    <h2 class="achievement-title">{{ aboutData.achievement_title }}</h2>
+                    <p class="achievement-subtitle">
+                        {{ aboutData.achievement_subtitle }}
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-card">
+                <div class="mission-beliefs">
+                    <div class="mission-card">
+                        <h3 class="card-title">💡 Our Mission</h3>
+                        <p>{{ aboutData.mission_text }}</p>
+                    </div>
+                    <div class="beliefs-card">
+                        <h3 class="card-title">✨ What We Believe</h3>
+                        <ul class="beliefs-list">
+                            <li>{{ aboutData.belief1 }}</li>
+                            <li>{{ aboutData.belief2 }}</li>
+                            <li>{{ aboutData.belief3 }}</li>
+                            <li>{{ aboutData.belief4 }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-card">
+                <h2 class="section-title">Who We Work With</h2>
+                <div class="clients-grid">
+                    {% for item in work_with %}
+                    <div class="client-card">
+                        <div class="client-icon">{{ item.work_icon | safe }}</div>
+                        <h4>{{ item.work_title }}</h4>
+                        <p>{{ item.work_description }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-card">
+                <h2 class="section-title">Meet Our Founders</h2>
+                <div class="founders-grid">
+                    {% for founder in founders %}
+                    <div class="founder-card">
+                        <div class="founder-header">
+                            <div class="founder-info">
+                                <h3>{{ founder.founder_name }}</h3>
+                                <div class="founder-role">{{ founder.founder_role }}</div>
+                            </div>
+                            <div class="founder-image-placeholder">
+                                <img src="{{ founder.founder_image }}" alt="{{ founder.founder_name }}">
+                            </div>
+                        </div>
+                        <p class="founder-description">
+                            {{ founder.founder_description }}
+                        </p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-card">
+                <h2 class="section-title">Our Team</h2>
+                {% if team_members %}
+                <div class="team-members-container">
+                    <div class="team-members-scroll">
+                        {% for member in team_members %}
+                        <div class="team-member-card">
+                            <div class="team-member-image">
+                                <img src="{{ member.member_image }}" alt="{{ member.member_name }}">
+                            </div>
+                            <div class="team-member-info">
+                                <h4 class="team-member-name">{{ member.member_name }}</h4>
+                                <div class="team-member-position">{{ member.member_position }}</div>
+                                <p class="team-member-description">{{ member.member_description }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+            </div>
+            {% else %}
+            <div class="no-team-message">
+                <p>Our team information will be available soon.</p>
+            </div>
+            {% endif %}
+            </div>
+        </section>
+
+        
+
+    </main>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+    const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth hover effects
+        document.querySelectorAll('.section-card, .client-card, .founder-card, .team-member-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '1';
+        });
+    </script>
+{% endblock %}

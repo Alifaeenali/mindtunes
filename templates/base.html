@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MindTune Innovations{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libertinus+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="{{url_for('static', filename='css/base.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/backtotop.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/footer.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/backtotop.css')}}">
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <nav id="navbar">
+        <div class="logo">
+            <img src="{{ nav.navLogo }}" alt="MindTune Logo">
+            <div class="hidden">
+                <svg class="openNav" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+                <svg class="closeNav" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </div>
+        </div>
+        <ul class="nav-items mobile-nav">
+            <li><a href="{{ url_for('index') }}">{{ nav.navAnchor1 }}</a></li>
+            <li><a href="{{ url_for('about') }}">{{ nav.navAnchor2 }}</a></li>
+            <li><a href="{{ url_for('services') }}">{{ nav.navAnchor3 }}</a></li>
+            <li><a href="{{ url_for('news') }}">{{ nav.navAnchor4 }}</a></li>
+            <li><a href="{{ url_for('contact') }}">{{ nav.navAnchor5 }}</a></li>
+            <li><a href="{{ url_for('careers') }}">{{ nav.navAnchor6 }}</a></li>
+        </ul>
+    </nav>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        <i class="fas {{ 'fa-check-circle' if category == 'success' else 'fa-exclamation-triangle' if category == 'warning' else 'fa-times-circle' }}"></i>
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+
+    <footer>
+        <div class="ftr-cont">
+            <div class="footer-up ftr-elem">
+                <div class="ftr-lft up-elem">
+                    <div class="ftr-lft-logo">
+                        <img src="{{ nav.navLogo }}" alt="MindTune Logo">
+                    </div>
+                    <div class="lft-links">
+                        <a href="{{ footer.ftr_link1 }}" class="ftr-links" target='_blank'>
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="{{ footer.ftr_link2}}" class="ftr-links" target='_blank'>
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="{{ footer.ftr_link3 }}" class="ftr-links" target='_blank'>
+                            <i class="fa-solid fa-at"></i>
+                        </a>
+                        <a href="{{ footer.ftr_link4 }}" class="ftr-links" target='_blank'>
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ftr-rt up-elem">
+                    <div class="ftr-rt-links link-cont-1">
+                        <a href="{{url_for('index')}}">{{ nav.navAnchor1 }}</a>
+                        <a href="{{url_for('about')}}">{{ nav.navAnchor2 }}</a>
+                        <a href="{{url_for('services')}}">{{ nav.navAnchor3 }}</a>
+                    </div>
+                    <div class="ftr-rt-links link-cont-2">
+                        <a href="{{url_for('news')}}">{{ nav.navAnchor4 }}</a>
+                        <a href="{{url_for('contact')}}">{{ nav.navAnchor5 }}</a>
+                        <a href="{{url_for('careers')}}">{{ nav.navAnchor6 }}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-down ftr-elem">
+                <div class="term-policy term1">
+                    <p class="term-sent">
+                        &copy; 2025 MindTune Innovations. All rights reserved.
+                    </p>
+                </div>
+                <div class="term-policy term1">
+                    <p class="term-sent">
+                        <p style='font-size: 1rem;'>
+                            <i class="fa-solid fa-location-dot"></i> Pakistan |
+                            <i class="fa-solid fa-phone"></i> CEll: +92 306 3978689 |
+                            <i class="fa-solid fa-phone"></i>UAN: +92 306 3978689
+                        </p>
+                        
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="backtotop" id="backToTop">
+
+        <button>
+
+            <i class="fa-solid fa-chevron-up"></i>
+
+        </button>
+
+    </div>
+
+    {% block scripts %}
+    <script src="{{ url_for('static', filename='js/navbarSetting.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/backtotop.js') }}"></script>
+    {% endblock %}
+</body>
+</html>
