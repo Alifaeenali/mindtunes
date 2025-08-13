@@ -55,3 +55,29 @@ python app.py
 the link will show up in the terminal
 
 copy paste that link in browser or ctrl+click on that link
+
+
+## Here is my env file things : 
+
+FLASK_SECRET_KEY=your_super_secret_key_here_change_this_in_production
+
+# Database Configuration
+DB_HOST=yourhost
+DB_USER=your_user_name
+DB_PASSWORD=your_password
+DB_DATABASE=yourdb
+
+# Admin Configuration
+ADMIN_USERNAME=your_name_admin
+ADMIN_PASSWORD_HASH=your_password
+
+# Email/SMTP Configuration
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+EMAIL_USER=example@gmail.com
+EMAIL_PASSWORD=your app password
+EMAIL_FROM_NAME=your Email form name
+
+# Development Settings
+FLASK_ENV=development
+FLASK_DEBUG=1
